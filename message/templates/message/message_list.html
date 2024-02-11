@@ -1,11 +1,11 @@
 {% extends 'message/base.html' %}
 
 {% block content %}
-{% if perms.message.add_message %}
+
 <div class="col-12 mb-5">
     <a class="btn btn-outline-primary" href="{% url 'message:create_message' %}">Создать сообщение</a>
 </div>
-{% endif %}
+
 {% for object in object_list %}
 <div class="col-6 mb-4">
     <div class="card mb-6 box-shadow">
@@ -13,8 +13,7 @@
             <h4 class="my-0 font-weight-normal">{{ object.topic }}</h4>
         </div>
         <div class="card-body">
-            <h6 class="p-2">Добавил {{ object.owner }}</h6>
-            <h6 class="p-2">Добавил {{ object.user|default:"admin" }}</h6>
+            <h6 class="p-2">Добавил {{ object.owner|default:"admin" }}</h6>
             <div class="btn-group" role="group" aria-label="Button group">
                 {% if perms.message.view_message %}
                 <a href="{% url 'message:message_view' object.pk %}" class="btn btn-sm btn-primary">
@@ -37,4 +36,10 @@
 </div>
 
 {% endfor %}
+<h1>Блог</h1>
+    <ul>
+        {% for post in blog_posts %}
+            <li>{{ post.title }} - {{ post.content }}</li>
+        {% endfor %}
+    </ul>
 {% endblock %}
