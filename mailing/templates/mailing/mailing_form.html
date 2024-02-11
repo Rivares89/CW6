@@ -1,16 +1,17 @@
 {% extends 'message/base.html' %}
 
 {% block content %}
-<div class="card">
-    <div class="card-header">Создание рассылки {{ topic }}</div>
+<div class="card mt-5">
+    <div class="card-header bg-primary text-white">
+        Создание рассылки {{ topic }}
+    </div>
     <div class="card-body">
         <form method="post">
             {% csrf_token %}
             <input type="hidden" name="message" value="{{message.pk}}">
             {{ form.as_p }}
-            <button type="submit" class="btn btn-success">Сделать рассылку</button>
+            <button type="submit" class="btn btn-success btn-lg btn-block">Сделать рассылку</button>
         </form>
     </div>
 </div>
-
 {% endblock %}
