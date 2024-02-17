@@ -1,0 +1,45 @@
+{% extends 'message/base.html' %}
+
+{% block content %}
+
+<div class="col-12 mb-5">
+    <a class="btn btn-outline-primary" href="{% url 'message:create_client' %}">Создать клиента</a>
+</div>
+
+{% for object in object_list %}
+<div class="col-6 mb-4">
+    <div class="card mb-6 box-shadow">
+        <div class="card-header bg-primary text-white">
+            <h4 class="my-0 font-weight-normal">{{ object.name }}</h4>
+        </div>
+        <div class="card-body">
+            <h6 class="p-2">Добавил {{ object.owner|default:"admin" }}</h6>
+            <div class="btn-group" role="group" aria-label="Button group">
+                {% if perms.message.view_message %}
+                <a href="{% url 'message:client_view' object.pk %}" class="btn btn-sm btn-primary">
+                    Посмотреть
+                </a>
+                {% endif %}
+                {% if perms.message.change_message %}
+                <a href="{% url 'message:update_client' object.pk %}" class="btn btn-sm btn-success">
+                    Обновить
+                </a>
+                {% endif %}
+                {% if perms.message.delete_message %}
+                <a href="{% url 'message:delete_client' object.pk %}" class="btn btn-sm btn-danger">
+                    Удалить
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endfor %}
+<h1>Блог</h1>
+    <ul>
+        {% for post in blog_posts %}
+            <li>{{ post.title }} - {{ post.content }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

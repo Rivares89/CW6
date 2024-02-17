@@ -6,13 +6,13 @@
         <div class="col-6">
             <div class="card mt-5">
                 <div class="card-header bg-primary text-white">
-                    {{ object.topic }}
+                    {{ object.name }}
                 </div>
                 <div class="card-body">
-                    {{ object.body }}
+                    {{ object.email }}
                 </div>
                 <div class="card-footer">
-                    <a href="{% url 'message:create_sending' object.pk %}" class="btn btn-success">Сделать рассылку</a>
+                    <a href="{% url 'message:create_sending' object.pk %}" class="btn btn-success">Добавить в рассылку</a>
                 </div>
             </div>
         </div>

@@ -1,0 +1,41 @@
+{% extends 'message/base.html' %}
+{% load humanize %}  {# Для использования naturaltime #}
+{% block content %}
+
+<div class="card">
+    <div class="card-header">Созданные рассылки</div>
+    <div class="card-body">
+        <table class="table table-striped">
+
+            <tr>
+                <th>Тема рассылки</th>
+                <th>Получатели</th>
+                <th>Статус</th>
+                <th>Дата создания</th>
+            </tr>
+            {% for object in object_list %}
+            <tr>
+                <td>{{ object.topic }}</td>
+                <td>
+                    {% for recipient in object.recipients.all %}
+                    {{ recipient.email }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                    {% if object.status == Mailing.SUCCESSFUL %}
+                    <span class="badge badge-success">{{ object.get_status_display }}</span>
+                    {% elif object.status == Mailing.FAILED %}
+                    <span class="badge badge-danger">{{ object.get_status_display }}</span>
+                    {% else %}
+                    <span class="badge badge-warning">{{ object.get_status_display }}</span>
+                    {% endif %}
+                </td>
+                <td>{{ object.created_at|naturaltime }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+
